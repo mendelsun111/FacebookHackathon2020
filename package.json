@@ -1,0 +1,38 @@
+{
+  "name": "facebookhackathon2020",
+  "version": "1.0.0",
+  "description": "build a messenger police help chat bot with nodejs platform",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/menthegreat/facebookhackathon2020.git"
+  },
+  "keywords": [
+    "messenger",
+    "chat",
+    "bot",
+    "nodejs",
+    "policehelp"
+  ],
+  "author": "Mendel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/menthegreat/facebookhackathon2020/issues"
+  },
+  "homepage": "https://github.com/menthegreat/facebookhackathon2020#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.3",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "nodemon": "^2.0.4"
+  }
+}
