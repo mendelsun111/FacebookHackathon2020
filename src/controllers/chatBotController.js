@@ -46,6 +46,7 @@ let postWebhook = (req, res) =>{
 };
 
 
+  
 let getWebhook = (req, res) => {
      // Your verify token. Should be a random string.
   let VERIFY_TOKEN = MY_VERIFY_TOKEN;
@@ -116,25 +117,11 @@ function handleMessage(sender_psid, received_message) {
   
   // Sends the response message
   callSendAPI(sender_psid, response);    
-  
+    
 }
 
 // Handles messaging_postbacks events
 function handlePostback(sender_psid, received_postback) {
-
-  let response;
-
-  // Get the payload for the postback
-  let payload = received_postback.payload;
-
-  // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  }
-  // Send the message to acknowledge the postback
-  callSendAPI(sender_psid, response);
 
 }
 
