@@ -1,3 +1,4 @@
+<<<<<<< HEAD
   
 // import homepageService from "../services/homepageService";
 
@@ -6,10 +7,13 @@ require("dotenv").config();
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 
+=======
+>>>>>>> d4a49ac6683a4db94317ce56a9d08176f3295d82
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs");
 };
 
+<<<<<<< HEAD
 let getFacebookUserProfile=(req,res)=>{
     return res.render("profile.ejs");
 };
@@ -80,8 +84,8 @@ let setUpUserFacebookProfile = async (req, res) => {
 };
 
 
+=======
+>>>>>>> d4a49ac6683a4db94317ce56a9d08176f3295d82
 module.exports = {
-    getHomePage: getHomePage,
-    getFacebookUserProfile: getFacebookUserProfile,
-    setUpUserFacebookProfile: setUpUserFacebookProfile
+    getHomePage: getHomePage
 };
