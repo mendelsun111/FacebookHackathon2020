@@ -1,7 +1,8 @@
   
+//import request from "request";
 // import homepageService from "../services/homepageService";
 
-//import request from "request";
+
 require("dotenv").config();
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
@@ -53,12 +54,13 @@ let setUpUserFacebookProfile = async (req, res) => {
 
     request({
         "uri": "https://graph.facebook.com/v6.0/me/messenger_profile",
+        "qs": {"access_token": PAGE_ACCESS_TOKEN},
         "method": "POST",
         "json": data
     }, (err, res, body) => {
         if (!err) {
         return res.status(200).json({
-            message: "setup done"
+            "message": "setup done"
         })
         } else {
         return res.status(500).json({
@@ -81,5 +83,7 @@ let setUpUserFacebookProfile = async (req, res) => {
 
 
 module.exports = {
-    getHomePage: getHomePage
+    getHomePage: getHomePage,
+    getFacebookUserProfile: getFacebookUserProfile,
+    setUpUserFacebookProfile: setUpUserFacebookProfile
 };
