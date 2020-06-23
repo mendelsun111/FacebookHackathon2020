@@ -46,7 +46,6 @@ let postWebhook = (req, res) =>{
 };
 
 
-
 let getWebhook = (req, res) => {
      // Your verify token. Should be a random string.
   let VERIFY_TOKEN = MY_VERIFY_TOKEN;
@@ -118,8 +117,6 @@ function handleMessage(sender_psid, received_message) {
   // Sends the response message
   callSendAPI(sender_psid, response);    
   
-  // Sends the response message
-  callSendAPI(sender_psid, response);    
 }
 
 // Handles messaging_postbacks events
