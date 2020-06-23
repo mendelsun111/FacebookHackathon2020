@@ -1,6 +1,6 @@
 require("dotenv").config();
 
-//import request from "request";
+import request from "request";
 
 const MY_VERIFY_TOKEN = process.env.MY_VERIFY_TOKEN;
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
