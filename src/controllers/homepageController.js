@@ -15,7 +15,7 @@ let getFacebookUserProfile=(req,res)=>{
     return res.render("profile.ejs");
 };
 
-let setUpUserFacebookProfile = async (req, res) => {
+let setUpUserFacebookProfile = (req, res) => {
 
     // Send the HTTP request to the Messenger Platform
 
@@ -69,15 +69,17 @@ let setUpUserFacebookProfile = async (req, res) => {
         }
     }); 
     // Send the HTTP request to the Messenger Platform
-    try{
-        await homepageService.setUpMessengerPlatform(PAGE_ACCESS_TOKEN);
-        return res.status(200).json({
-            message: "OK"
-        });
-    }catch (e) {
-        return res.status(500).json({
-            "message": "Error from the node server"
-        })
+    let setUpUserFacebookProfile = async (req, res) => {
+        try{
+            await homepageService.setUpMessengerPlatform(PAGE_ACCESS_TOKEN);
+            return res.status(200).json({
+               message: "OK"
+         });
+     }catch (e) {
+           return res.status(500).json({
+                "message": "Error from the node server"
+         })
+     }
     }
 };
 
