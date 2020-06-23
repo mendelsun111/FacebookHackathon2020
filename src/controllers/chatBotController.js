@@ -20,13 +20,6 @@ let postWebhook = (req, res) =>{
   let webhook_event = entry.messaging[0];
   console.log(webhook_event);
 
-  // Get the sender PSID
-  let sender_psid = webhook_event.sender.id;
-  console.log('Sender PSID: ' + sender_psid);
-      // Gets the body of the webhook event
-  let webhook_event = entry.messaging[0];
-  console.log(webhook_event);
-
 
   // Get the sender PSID
   let sender_psid = webhook_event.sender.id;
@@ -39,6 +32,7 @@ let postWebhook = (req, res) =>{
   } else if (webhook_event.postback) {
     handlePostback(sender_psid, webhook_event.postback);
   }
+      
     });
 
     // Return a '200 OK' response to all events
@@ -94,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
   
     // Gets the URL of the message attachment
     let attachment_url = received_message.attachments[0].payload.url;
-    response = {
+      response = {
       "attachment": {
         "type": "template",
         "payload": {
@@ -141,12 +135,12 @@ function callSendAPI(sender_psid, response) {
       "id": sender_psid
     },
     "message": response
-  };
+  }
 
   // Send the HTTP request to the Messenger Platform
   request({
     "uri": "https://graph.facebook.com/v6.0/me/messages",
-    "qs": { "access_token": PAGE_ACCESS_TOKEN},
+    "qs": { "access_token": PAGE_ACCESS_TOKEN },
     "method": "POST",
     "json": request_body
   }, (err, res, body) => {
