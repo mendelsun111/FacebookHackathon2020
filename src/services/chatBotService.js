@@ -37,7 +37,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                         "elements": [{
                             "title": "Is the situation urgent?",
                             "subtitle": "Tap a button to answer.",
-                            "image_url": "https://www.ville.lac-megantic.qc.ca/wp-content/uploads/2016/07/Fotolia_82962317_XS-Web-300x300.jpg",
+                            "image_url": "https://bit.ly/imageToSend",
                             "buttons": [
                                 {
                                     "type": "postback",
@@ -67,8 +67,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
         }
 
     });
-
-}
+};
 
 let sendMessage = (sender_psid, response) => {
     let request_body = {
