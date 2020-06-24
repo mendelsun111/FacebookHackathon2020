@@ -103,7 +103,7 @@ let handleMessage = async (sender_psid, received_message) => {
   } else if (entity.name === "wit$phone_number:phone_number") {
     //handle quick reply message: done reserve table
 
-  } else if (received_message.text.incudes("DONE") || received_message.text.incudes("done")){
+  } else if (received_message.text.includes("DONE") || received_message.text.includes("done")){
     await chatBotService.sendFinalReport(sender_psid);
 
   } else {
