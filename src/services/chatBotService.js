@@ -68,6 +68,27 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     });
 };
 
+
+
+let reportIncidence = (sender_psid) => {
+    return new Promise( async (resolve, reject) => {
+        try{
+            let response = {text:"We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible."};
+            let response_second ={text: "What time did the incident occur?"};
+
+            await sendMessage(sender_psid, response);
+            await sendMessage(sender_psid, response_second);
+
+
+        }catch(e) {
+            reject(e);
+        }
+
+    });
+
+};
+
+
 let sendMessage = (sender_psid, response) => {
     let request_body = {
         "recipient": {
@@ -89,24 +110,6 @@ let sendMessage = (sender_psid, response) => {
             console.error("Unable to send message:" + err);
         }
     });
-};
-
-let reportIncidence = (sender_psid) => {
-    return new Promise( async (resolve, reject) => {
-        try{
-            let response = {text:"We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible."};
-            await sendMessage(sender_psid, response);
-
-            let response_second ={text: "What time did the incident occur?"};
-            await sendMessage(sender_psid, response_second);
-
-            
-        }catch(e) {
-            reject(e);
-        }
-
-    });
-
 };
 
 

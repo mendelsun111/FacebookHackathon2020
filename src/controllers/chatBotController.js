@@ -77,10 +77,10 @@ function handleMessage(sender_psid, received_message) {
   //Handle text message
   let entity = handleMessageWithEntities(received_message);
 
-  if(entity === "wit$datetime:datetime"){
+  if(entity.name === "wit$datetime:datetime"){
     //handle quick reply message: asking about phone number
 
-  }else if(entity === "wit$phone_number:phone_number"){
+  }else if(entity.name === "wit$phone_number:phone_number"){
     //handle quick reply message: done reserve table
   }else{
     //default reply
@@ -94,7 +94,7 @@ function handleMessage(sender_psid, received_message) {
 let handleMessageWithEntities = (message) => {
   let entitiesArr = ["wit$datetime:datetime", "wit$phone_number:phone_number"];
   let entityChosen = "";
-  let data = {};
+  let data = {}; //data is an object saving value and name of the entity
   entitiesArr.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
     if (entity && entity.confidence > 0.8){
@@ -104,9 +104,6 @@ let handleMessageWithEntities = (message) => {
   });
 
   data.name = entityChosen;
-  console.log("----------------");
-  console.log(data);
-  console.log("----------------");
   return data;
 };
 
