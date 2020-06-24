@@ -174,7 +174,7 @@ let askPhoneNumber = (sender_psid) => {
         "recipient": {"id": sender_psid},
         "messaging_type": "RESPONSE",
         "message": {
-            "text": "Are you safe?",
+            "text": "What is your phone number?",
             "quick_replies": [
                 {
                     "content_type": "user_phone_number",
