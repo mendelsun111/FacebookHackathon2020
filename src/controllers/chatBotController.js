@@ -96,7 +96,7 @@ let handleMessage = async (sender_psid, received_message) => {
 
   //handle attachment message
 
-}
+};
 
 //Use Facebook AI to read user message
 let handleMessageWithEntities = (message) => {
@@ -142,6 +142,9 @@ let handlePostback = async (sender_psid, received_postback) => {
     case "REPORT_INCIDENCE":
       await chatBotService.reportIncidence(sender_psid);
       break;
+    case "EMERGENCY_DANGER":
+      let response = { "text": "CALL 911 NOW" };
+      callSendAPI(sender_psid, response);
     default:
       console.log("Something wrong with switch case payload");
   }
