@@ -233,7 +233,7 @@ let sendFinalReport = async (sender_psid) => {
             }
         };
 
-        await sendMessage(sender_id, response);
+        await sendMessage(sender_psid, response);
 
     } catch (e) {
         console.log(e);
