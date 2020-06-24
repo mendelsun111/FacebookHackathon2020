@@ -28,7 +28,7 @@ let getFacebookUsername = (sender_psid) => {
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try{
-            let response_first = { "text": `Welcome ${username} to Police Help! ` };
+            let response_first = { "text": `Welcome ${username} to Police Help!` };
             let response_second = {
                 "attachment": {
                     "type": "template",
@@ -36,7 +36,6 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                         "template_type": "generic",
                         "elements": [{
                             "title": "Is the situation urgent?",
-                            "subtitle": "Tap a button to answer.",
                             "image_url": "https://bit.ly/imageToSend",
                             "buttons": [
                                 {
@@ -59,7 +58,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
             await sendMessage(sender_psid, response_first);
     
             //send a image with button view main menu
-            await sendMesssage(sender_psid, response_second);
+            await sendMessage(sender_psid, response_second);
 
             resolve("done!");
         }catch (e){
