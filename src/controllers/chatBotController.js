@@ -143,8 +143,8 @@ let handlePostback = async (sender_psid, received_postback) => {
       await chatBotService.reportIncidence(sender_psid);
       break;
     case "EMERGENCY_DANGER":
-      let response = { "text": "CALL 911 NOW" };
-      callSendAPI(sender_psid, response);
+      await chatBotService.callPolice(sender_psid);
+      break;
     default:
       console.log("Something wrong with switch case payload");
   }

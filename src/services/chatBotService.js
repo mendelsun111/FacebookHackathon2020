@@ -152,10 +152,27 @@ let safetyCheckEmergency = (sender_psid) => {
     });
 };
 
+//Call police if person not safe
+let callPolice = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = { text: "We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible." };
+
+            await sendMessage(sender_psid, response);
+
+        } catch (e) {
+            reject(e);
+        }
+
+    });
+
+};
+
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
     reportIncidence: reportIncidence,
     sendMessage: sendMessage,
-    safetyCheckEmergency: safetyCheckEmergency
+    safetyCheckEmergency: safetyCheckEmergency,
+    callPolice: callPolice
 };
