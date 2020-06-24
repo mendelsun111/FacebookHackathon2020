@@ -45,8 +45,8 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                                 },
                                 {
                                     "type": "postback",
-                                    "title": "Report Incidence",
-                                    "payload": "REPORT_INCIDENCE",
+                                    "title": "Report Incident",
+                                    "payload": "REPORT_INCIDENT",
                                 }
                             ],
                         }]
@@ -69,10 +69,10 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 };
 
 
-let reportIncidence = (sender_psid) => {
+let reportIncident = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = { text: "We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible." };
+            let response = { text: "We will ask you some questions about the incident. If possible, please provide us with as much detail as possible." };
             let response_second = { text: "What time did the incident occur?" };
 
             await sendMessage(sender_psid, response);
@@ -89,10 +89,10 @@ let reportIncidence = (sender_psid) => {
 
 };
 
-let askIncidenceDetail = (sender_psid) => {
+let askIncidentDetail = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = { text: "Please provide the information below: \n1. Location of the Incidence. \n2. Who are you? \n3. Who was present? \n4. What happened?" };
+            let response = { text: "Please provide the information below: \n1. Location of the Incident. \n2. Who are you? \n3. Who was present? \n4. What happened? \n5End your report with 'DONE'" };
 
             await sendMessage(sender_psid, response);
 
@@ -239,8 +239,8 @@ let sendFinalReport = async (sender_psid) => {
                         },
                         {
                             "type": "postback",
-                            "title": "Report Incidence",
-                            "payload": "REPORT_INCIDENCE",
+                            "title": "Report Incident",
+                            "payload": "REPORT_INCIDENT",
                         }
                     ],
                 }
@@ -258,11 +258,11 @@ let sendFinalReport = async (sender_psid) => {
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
-    reportIncidence: reportIncidence,
+    reportIncident: reportIncident,
     sendMessage: sendMessage,
     safetyCheckEmergency: safetyCheckEmergency,
     callPolice: callPolice,
     askPhoneNumber: askPhoneNumber,
     sendFinalReport: sendFinalReport,
-    askIncidenceDetail: askIncidenceDetail
+    askIncidentDetail: askIncidentDetail
 };

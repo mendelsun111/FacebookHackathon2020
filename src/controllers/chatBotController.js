@@ -82,7 +82,7 @@ let handleMessage = async (sender_psid, received_message) => {
         await chatBotService.callPolice(sender_psid);
         break;
       case "EMERGENCY_SAFE":
-        await chatBotService.reportIncidence(sender_psid);
+        await chatBotService.reportIncident(sender_psid);
         break;
       default:
         console.log("Something wrong with switch case payload");
@@ -95,15 +95,15 @@ let handleMessage = async (sender_psid, received_message) => {
   let entity = handleMessageWithEntities(received_message);
 
   if (entity.name === "wit$datetime:datetime") {
-    //handle quick reply message: asking about the incidence
-    await askIncidenceDetail(sender_psid);
+    //handle quick reply message: asking about the incident
+    await askIncidentDetail(sender_psid);
 
   } else if (entity.name === "wit$phone_number:phone_number") {
     //handle quick reply message: done reserve table
 
-  } else if (received_message.text){
+  } else if (received_message.text.incudes("DONE") || received_message.text.incudes("done")){
     await chatBotService.sendFinalReport(sender_psid);
-    
+
   } else {
     //default reply
   }
@@ -153,8 +153,8 @@ let handlePostback = async (sender_psid, received_postback) => {
     case "EMERGENCY":
       await chatBotService.safetyCheckEmergency(sender_psid);
       break;
-    case "REPORT_INCIDENCE":
-      await chatBotService.reportIncidence(sender_psid);
+    case "REPORT_INCIDENT":
+      await chatBotService.reportIncident(sender_psid);
       break;
     default:
       console.log("Something wrong with switch case payload");
