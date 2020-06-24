@@ -89,6 +89,20 @@ let reportIncidence = (sender_psid) => {
 
 };
 
+let askIncidenceDetail = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = { text: "Please provide the information below: \n1. Location of the Incidence. \n2. Who are you? \n3. Who was present? \n4. What happened?" };
+
+            await sendMessage(sender_psid, response);
+
+        } catch (e) {
+            reject(e);
+        }
+
+    });
+
+};
 
 let sendMessage = (sender_psid, response) => {
     return new Promise((resolve, reject) => {
@@ -249,5 +263,6 @@ module.exports = {
     safetyCheckEmergency: safetyCheckEmergency,
     callPolice: callPolice,
     askPhoneNumber: askPhoneNumber,
-    sendFinalReport: sendFinalReport
+    sendFinalReport: sendFinalReport,
+    askIncidenceDetail: askIncidenceDetail
 };
