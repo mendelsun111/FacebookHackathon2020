@@ -85,28 +85,28 @@ let handleMessage = async (sender_psid, received_message) => {
         await chatBotService.reportIncident(sender_psid);
         break;
       default:
-        console.log("Something wrong with switch case payload");
+        //Handle text message
+        let entity = handleMessageWithEntities(received_message);
+
+        if (entity.name === "wit$datetime:datetime") {
+          //handle quick reply message: asking about the incident
+          await askIncidentDetail(sender_psid);
+
+        } else if (entity.name === "wit$phone_number:phone_number") {
+          //handle quick reply message: done reserve table
+
+        } else if (received_message.text.incudes("DONE") || received_message.text.incudes("done")) {
+          await chatBotService.sendFinalReport(sender_psid);
+
+        } else {
+          //default reply
+        }
     }
     return;
   }
 
 
-  //Handle text message
-  let entity = handleMessageWithEntities(received_message);
 
-  if (entity.name === "wit$datetime:datetime") {
-    //handle quick reply message: asking about the incident
-    await askIncidentDetail(sender_psid);
-
-  } else if (entity.name === "wit$phone_number:phone_number") {
-    //handle quick reply message: done reserve table
-
-  } else if (received_message.text.incudes("DONE") || received_message.text.incudes("done")){
-    await chatBotService.sendFinalReport(sender_psid);
-
-  } else {
-    //default reply
-  }
 
   //handle attachment message
 

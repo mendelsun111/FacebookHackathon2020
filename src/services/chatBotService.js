@@ -92,7 +92,7 @@ let reportIncident = (sender_psid) => {
 let askIncidentDetail = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = { text: "Please provide the information below: \n1. Location of the Incident. \n2. Who are you? \n3. Who was present? \n4. What happened? \n5End your report with 'DONE'" };
+            let response = { text: "Please provide the information below: \n1. Location of the Incident. \n2. Who are you? \n3. Please provide your phone number so we can contact you. \n4. Who was present? \n5. What happened? \n5End your report with 'DONE'" };
 
             await sendMessage(sender_psid, response);
 
