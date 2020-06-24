@@ -87,9 +87,9 @@ function handleMessage(sender_psid, received_message) {
 
   } else if (received_message.includes("Incidence:")) {
     // Create the payload for a basic text message
-    let response = {"text": "Thank you for reporting the incidence. We will get back to you as soon as possible."};
+    let response = { "text": "Thank you for reporting the incidence. We will get back to you as soon as possible." };
     await chatBotService.sendMessage(sender_psid, response);
-    
+
   } else {
     //default reply
   }
