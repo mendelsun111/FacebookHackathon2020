@@ -77,7 +77,8 @@ let reportIncidence = (sender_psid) => {
             let response_second ={text: "What time did the incident occur?"};
 
             await sendMessage(sender_psid, response);
-            await sendMessage(sender_psid, response_second);
+
+            setTimeout(await sendMessage(sender_psid, response_second),1000);
 
 
         }catch(e) {
