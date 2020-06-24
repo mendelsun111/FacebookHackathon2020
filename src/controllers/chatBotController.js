@@ -85,7 +85,7 @@ let handleMessage = async (sender_psid, received_message) => {
         await chatBotService.askIncidentDetail(sender_psid);
         break;
       default:
-        if (received_message.text.incudes("DONE") || received_message.text.incudes("done")){
+        if (received_message.text.includes("DONE") || received_message.text.includes("done")){
           await chatBotService.sendFinalReport(sender_psid);
         };
     }
