@@ -77,8 +77,8 @@ let handleMessage = async (sender_psid, received_message) => {
   //Check if it's a quick reply
   if(message && message.quick_reply && message.quick_reply.payload){
     if(message.quick_reply.payload = "EMERGENCY_DANGER"){
-      let response = { "text": "CALL 911 NOW" };
-      await callSendAPI(sender_psid, response);
+      //let response = { "text": "CALL 911 NOW" };
+      await chatBotService.callPolice(sender_psid);
     }
     return;
   };
