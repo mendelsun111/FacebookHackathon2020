@@ -85,7 +85,7 @@ function handleMessage(sender_psid, received_message) {
 
 //Use Facebook AI to read user message
 let handleMessageWithEntities = (message) => {
-  let entitiesArr = ["datatime", "phone_number"];
+  let entitiesArr = ["wit$datetime:$datetime", "wit$phone_number:phone_number"];
   let entityChosen = "";
   entitiesArr.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
