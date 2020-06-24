@@ -36,7 +36,7 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                         "template_type": "generic",
                         "elements": [{
                             "title": "Is the situation urgent?",
-                            "image_url": "https://bit.ly/imageToSend",
+                            "image_url": "../public/image/logo.png",
                             "buttons": [
                                 {
                                     "type": "postback",
