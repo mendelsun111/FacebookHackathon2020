@@ -74,49 +74,74 @@ let getWebhook = (req, res) => {
 
 // Handles messages events
 function handleMessage(sender_psid, received_message) {
-  let response;
+  //Handle text message
+  handleMessageWithEntities(received_message);
 
-  // Check if the message contains text
-  if (received_message.text) {
 
-    // Create the payload for a basic text message
-    response = {
-      "text": `You sent the message: "${received_message.text}". Now send me an image!`
-    }
-  } else if (received_message.attachments) {
+  // //NEW CODE
+  // let response;
 
-    // Gets the URL of the message attachment
-    let attachment_url = received_message.attachments[0].payload.url;
-    response = {
-      "attachment": {
-        "type": "template",
-        "payload": {
-          "template_type": "generic",
-          "elements": [{
-            "title": "Is this the right picture?",
-            "subtitle": "Tap a button to answer.",
-            "image_url": attachment_url,
-            "buttons": [
-              {
-                "type": "postback",
-                "title": "Yes!",
-                "payload": "yes",
-              },
-              {
-                "type": "postback",
-                "title": "No!",
-                "payload": "no",
-              }
-            ],
-          }]
-        }
-      }
-    }
-  }
+  // // Check if the message contains text
+  // if (received_message.text) {
 
-  // Sends the response message
-  callSendAPI(sender_psid, response);
+  //   // Create the payload for a basic text message
+  //   response = {
+  //     "text": `You sent the message: "${received_message.text}". Now send me an image!`
+  //   }
+  // } else if (received_message.attachments) {
+
+  //   // Gets the URL of the message attachment
+  //   let attachment_url = received_message.attachments[0].payload.url;
+  //   response = {
+  //     "attachment": {
+  //       "type": "template",
+  //       "payload": {
+  //         "template_type": "generic",
+  //         "elements": [{
+  //           "title": "Is this the right picture?",
+  //           "subtitle": "Tap a button to answer.",
+  //           "image_url": attachment_url,
+  //           "buttons": [
+  //             {
+  //               "type": "postback",
+  //               "title": "Yes!",
+  //               "payload": "yes",
+  //             },
+  //             {
+  //               "type": "postback",
+  //               "title": "No!",
+  //               "payload": "no",
+  //             }
+  //           ],
+  //         }]
+  //       }
+  //     }
+  //   }
+  // }
+
+  // // Sends the response message
+  // callSendAPI(sender_psid, response);
 }
+
+//Use Facebook AI to read user message
+let handleMessageWithEntities = (message) => {
+  let entitiesArr = ["datatime", "phone_number"];
+  let entityChosen = "";
+  entitiesArr.forEach((name) => {
+    let entity = firstEntity(message.nlp, name);
+    if (entity && entity.confidence > 0.8){
+      entityChosen = name;
+    }
+  });
+  console.log("-------------------");
+  console.log(entityChosen);
+  console.log("-------------------");
+};
+
+function firstEntity(nlp,name){
+  return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
+};
+
 
 // Handles messaging_postbacks events
 let handlePostback = async (sender_psid, received_postback)=> {
