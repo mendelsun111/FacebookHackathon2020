@@ -187,7 +187,31 @@ let callPolice = (sender_psid) => {
         try {
             let response = { text: "Call 911 NOW!" };
 
+            let response_second = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "button",
+                        "text": "To send another report, please press the button below.",
+                        "buttons": [
+                            {
+                                "type": "postback",
+                                "title": "Emergency",
+                                "payload": "EMERGENCY",
+                            },
+                            {
+                                "type": "postback",
+                                "title": "Report Incident",
+                                "payload": "REPORT_INCIDENT",
+                            }
+                        ],
+                    }
+                }
+            };
+    
             await sendMessage(sender_psid, response);
+
+            setTimeout(await sendMessage(sender_psid, response_second), 5000);
 
             resolve("done!");
 
