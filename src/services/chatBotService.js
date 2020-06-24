@@ -69,7 +69,6 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 };
 
 
-
 let reportIncidence = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -156,9 +155,11 @@ let safetyCheckEmergency = (sender_psid) => {
 let callPolice = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = { text: "We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible." };
+            let response = { text: "Call 911 NOW!" };
 
             await sendMessage(sender_psid, response);
+
+            resolve("done!");
 
         } catch (e) {
             reject(e);
