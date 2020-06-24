@@ -131,6 +131,7 @@ let handlePostback = async (sender_psid, received_postback)=> {
       //get username
       let username = await chatBotService.getFacebookUsername(sender_psid);
       await chatBotService.sendResponseWelcomeNewCustomer(username,sender_psid);
+      
       //response = { "text": `Welcome ${username} to Police Help! ` };
       break;
     case "no":
@@ -154,7 +155,7 @@ function callSendAPI(sender_psid, response) {
       "id": sender_psid
     },
     "message": response
-  }
+  };
 
   // Send the HTTP request to the Messenger Platform
   request({

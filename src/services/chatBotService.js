@@ -26,64 +26,71 @@ let getFacebookUsername = (sender_psid) => {
 };
 
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
-    return new Promise( async (resolve, reject) => {
-        let response_first = { "text": `Welcome ${username} to Police Help! ` };
-        let response_second = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Is the situation urgent?",
-                        "subtitle": "Tap a button to answer.",
-                        "image_url": "https://bit.ly/imageToSend",
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Urgent",
-                                "payload": "URGENT",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Not Urgent",
-                                "payload": "NOT_URGENT",
-                            }
-                        ],
-                    }]
+    return new Promise(async (resolve, reject) => {
+        try{
+            let response_first = { "text": `Welcome ${username} to Police Help! ` };
+            let response_second = {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": [{
+                            "title": "Is the situation urgent?",
+                            "subtitle": "Tap a button to answer.",
+                            "image_url": "https://www.ville.lac-megantic.qc.ca/wp-content/uploads/2016/07/Fotolia_82962317_XS-Web-300x300.jpg",
+                            "buttons": [
+                                {
+                                    "type": "postback",
+                                    "title": "Urgent",
+                                    "payload": "URGENT",
+                                },
+                                {
+                                    "type": "postback",
+                                    "title": "Not Urgent",
+                                    "payload": "NOT_URGENT",
+                                }
+                            ],
+                        }]
+                    }
                 }
-            }
-        };
+            };
+    
+            //send a welcome message
+            await sendMessage(sender_psid, response_first);
+    
+            //send a image with button view main menu
+            await sendMesssage(sender_psid, response_second);
 
-        //send a welcome message
-        await sendMessage(sender_psid, response_first);
+            resolve("done!");
+        }catch (e){
+            reject(e);
+        }
 
-        //send a image with button view main menu
-        await sendMesssage(sender_psid,response_second);
     });
 
 }
 
-let sendMessage = (sender_id, response) => {
+let sendMessage = (sender_psid, response) => {
     let request_body = {
         "recipient": {
-          "id": sender_psid
+            "id": sender_psid
         },
         "message": response
-      }
-    
-      // Send the HTTP request to the Messenger Platform
-      request({
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    request({
         "uri": "https://graph.facebook.com/v6.0/me/messages",
         "qs": { "access_token": PAGE_ACCESS_TOKEN },
         "method": "POST",
         "json": request_body
-      }, (err, res, body) => {
+    }, (err, res, body) => {
         if (!err) {
-          console.log('message sent!')
+            console.log('message sent!')
         } else {
-          console.error("Unable to send message:" + err);
+            console.error("Unable to send message:" + err);
         }
-      });  
+    });
 };
 
 module.exports = {
