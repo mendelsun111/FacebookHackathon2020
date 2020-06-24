@@ -91,32 +91,43 @@ let reportIncidence = (sender_psid) => {
 
 
 let sendMessage = (sender_psid, response) => {
-    let request_body = {
-        "recipient": {
-            "id": sender_psid
-        },
-        "message": response
-    };
+    return new Promise((resolve, reject) => {
+        try {
+            let request_body = {
+                "recipient": {
+                    "id": sender_psid
+                },
+                "message": response
+            };
 
-    // Send the HTTP request to the Messenger Platform
-    request({
-        "uri": "https://graph.facebook.com/v6.0/me/messages",
-        "qs": { "access_token": PAGE_ACCESS_TOKEN },
-        "method": "POST",
-        "json": request_body
-    }, (err, res, body) => {
-        if (!err) {
-            console.log('message sent!')
-        } else {
-            console.error("Unable to send message:" + err);
+            // Send the HTTP request to the Messenger Platform
+            request({
+                "uri": "https://graph.facebook.com/v6.0/me/messages",
+                "qs": { "access_token": PAGE_ACCESS_TOKEN },
+                "method": "POST",
+                "json": request_body
+            }, (err, res, body) => {
+                if (!err) {
+                    console.log('message sent!');
+                    resolve("done");;
+                } else {
+                    reject("Unable to send message:" + err);
+                }
+            });
+
+        } catch (e) {
+            reject(e);
+
         }
-    });
+
+    })
+
 };
 
 //Quick replies
 let safetyCheckEmergency = (sender_psid) => {
     let request_body = {
-        "recipient": {"id": sender_psid},
+        "recipient": { "id": sender_psid },
         "messaging_type": "RESPONSE",
         "message": {
             "text": "Are you safe?",
@@ -171,7 +182,7 @@ let callPolice = (sender_psid) => {
 
 let askPhoneNumber = (sender_psid) => {
     let request_body = {
-        "recipient": {"id": sender_psid},
+        "recipient": { "id": sender_psid },
         "messaging_type": "RESPONSE",
         "message": {
             "text": "What is your phone number?",
@@ -198,6 +209,38 @@ let askPhoneNumber = (sender_psid) => {
     });
 };
 
+let sendFinalReport = async (sender_psid) => {
+    try {
+        let response = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "button",
+                    "text": "Your report has been submitted, we will contact you as soon as possible. \n\nTo send another report, please press the button below.",
+                    "buttons": [
+                        {
+                            "type": "postback",
+                            "title": "Emergency",
+                            "payload": "EMERGENCY",
+                        },
+                        {
+                            "type": "postback",
+                            "title": "Report Incidence",
+                            "payload": "REPORT_INCIDENCE",
+                        }
+                    ],
+                }
+            }
+        };
+
+        await sendMessage(sender_id, response);
+
+    } catch (e) {
+        console.log(e);
+    }
+
+};
+
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
@@ -205,5 +248,6 @@ module.exports = {
     sendMessage: sendMessage,
     safetyCheckEmergency: safetyCheckEmergency,
     callPolice: callPolice,
-    askPhoneNumber: askPhoneNumber
+    askPhoneNumber: askPhoneNumber,
+    sendFinalReport: sendFinalReport
 };

@@ -82,7 +82,7 @@ let handleMessage = async (sender_psid, received_message) => {
         await chatBotService.callPolice(sender_psid);
         break;
       case "EMERGENCY_SAFE":
-        await chatBotService.askPhoneNumber(sender_psid);
+        await chatBotService.sendFinalReport(sender_psid);
         break;
       default:
         console.log("Something wrong with switch case payload");
