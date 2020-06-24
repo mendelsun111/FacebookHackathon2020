@@ -45,8 +45,8 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                                 },
                                 {
                                     "type": "postback",
-                                    "title": "Not Urgent",
-                                    "payload": "NOT_URGENT",
+                                    "title": "Report Incidence",
+                                    "payload": "REPORT_INCIDENCE",
                                 }
                             ],
                         }]
@@ -92,10 +92,10 @@ let sendMessage = (sender_psid, response) => {
 };
 
 
-let handleEmergency = (sender_psid) => {
+let reportIncidence = (sender_psid) => {
     return new Promise( async (resolve, reject) => {
         try{
-            let response = {text:"We will ask you some questions about the incident. If possible, give a detailed resposne. \nWhat time did the incident occur?"};
+            let response = {text:"We will ask you some questions about the incident. If possible, give as much details as you are able to. \nWhat time did the incident occur?"};
             await sendMessage(sender_psid, response)
         }catch(e) {
             reject(e);
@@ -109,5 +109,5 @@ let handleEmergency = (sender_psid) => {
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
-    handleEmergency: handleEmergency
+    reportIncidence: reportIncidence
 };

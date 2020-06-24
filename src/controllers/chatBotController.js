@@ -137,8 +137,8 @@ let handlePostback = async (sender_psid, received_postback)=> {
     case "URGENT":
       response = {};
       break;
-    case "NOT_URGENT":
-      await chatBotService.handleEmergency(sender_psid);
+    case "REPORT_INCIDENCE":
+      await chatBotService.reportIncidence(sender_psid);
       break;
     default:
       console.log("Something wrong with switch case payload");
