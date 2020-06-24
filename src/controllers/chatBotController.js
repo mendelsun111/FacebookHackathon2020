@@ -75,14 +75,19 @@ let getWebhook = (req, res) => {
 // Handles messages events
 let handleMessage = async (sender_psid, received_message) => {
   //Check if it's a quick reply
-  if(received_message && received_message.quick_reply && received_message.quick_reply.payload){
-    if(received_message.quick_reply.payload = "EMERGENCY_DANGER"){
-      await chatBotService.callPolice(sender_psid);
-    }else if(received_message.quick_reply.payload = "EMERGENCY_SAFE"){
-      await chatBotService.askPhoneNumber(sender_psid);
+  if (received_message && received_message.quick_reply && received_message.quick_reply.payload){
+    switch (received_message.quick_reply.payload) {
+      case "EMERGENCY_DANGER":
+        await chatBotService.callPolice(sender_psid);
+        break;
+      case "EMERGENCY_SAFE":
+        await chatBotService.askPhoneNumber(sender_psid);
+        break;
+      default:
+        console.log("Something wrong with switch case payload");
     }
-    return;
   };
+};
   
 
   //Handle text message
