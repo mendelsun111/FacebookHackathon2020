@@ -1,5 +1,4 @@
 require("dotenv").config();
-
 import request from "request";
 import chatBotService from "../services/chatBotService";
 
