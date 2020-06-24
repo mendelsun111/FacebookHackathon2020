@@ -46,7 +46,6 @@ let postWebhook = (req, res) =>{
 };
 
 
-
 let getWebhook = (req, res) => {
      // Your verify token. Should be a random string.
   let VERIFY_TOKEN = MY_VERIFY_TOKEN;
@@ -127,12 +126,18 @@ function handlePostback(sender_psid, received_postback) {
   let payload = received_postback.payload;
 
   // Set the response based on the postback payload
-  if (payload === 'yes') {
-    response = { "text": "Thanks!" }
-  } else if (payload === 'no') {
-    response = { "text": "Oops, try sending another image." }
-  } else if (payload === "GET_STARTED"){
-    response = { "text": "Wasssaaaa motherfooka!!!!!" }
+  switch(payload){
+    case "GET_STARTED":
+      response = {"text": "Welcome ABC_NAME to Police Help. "};   //Message user receive after clicking on "Get Started"
+      break;
+    case "no":
+      response = {};
+      break;
+    case "yes":
+      response = {};
+      break;
+    default:
+      console.log("Something wrong with switch case payload");
   }
   // Send the message to acknowledge the postback
   callSendAPI(sender_psid, response);

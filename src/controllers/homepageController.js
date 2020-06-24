@@ -83,7 +83,6 @@ let setUpUserFacebookProfile = (req, res) => {
     }
 };
 
-
 module.exports = {
     getHomePage: getHomePage,
     getFacebookUserProfile: getFacebookUserProfile,
