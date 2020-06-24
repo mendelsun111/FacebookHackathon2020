@@ -79,7 +79,7 @@ function handleMessage(sender_psid, received_message) {
 
   if (entity.name === "wit$datetime:datetime") {
     //handle quick reply message: asking about the incidence
-    let response = { text: "Please decribe the incidence. Start your description with 'Incidence: '" };
+    let response = { "text": "Please decribe the incidence. Start your description with 'Incidence: '" };
     await chatBotService.sendMessage(sender_psid, response);
 
   } else if (entity.name === "wit$phone_number:phone_number") {
