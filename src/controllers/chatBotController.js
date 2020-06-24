@@ -103,8 +103,7 @@ let handleMessage = async (sender_psid, received_message) => {
 
   } else if (received_message.text){
     await chatBotService.sendFinalReport(sender_psid);
-  }
-
+    
   } else {
     //default reply
   }
