@@ -94,7 +94,7 @@ let askIncidentDetail = (sender_psid) => {
         try {
             let response = { text: "We will ask you some questions about the incident. If possible, please provide us with as much detail as possible." };
 
-            let response_second = { text: "Please provide the information below: \n1. Location of the Incident. \n2. Who are you? \n3. Please provide your phone number so we can contact you. \n4. Who was present? \n6. The time of the incident. \n7.What happened? \n8.End your report with 'DONE'" };
+            let response_second = { text: "Please provide the information below: \n1. Location of the Incident. \n2. Who are you? \n3. Please provide your phone number so we can contact you. \n4. Who was present? \n6. The time of the incident. \n7. What happened? \n8. End your report with 'DONE'" };
 
             await sendMessage(sender_psid, response);
 
