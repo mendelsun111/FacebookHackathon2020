@@ -85,7 +85,9 @@ let handleMessage = async (sender_psid, received_message) => {
         await chatBotService.askIncidentDetail(sender_psid);
         break;
       default:
-        console.log("Something wrong with switch case payload");
+        if (received_message.text.incudes("DONE") || received_message.text.incudes("done")){
+          await chatBotService.sendFinalReport(sender_psid);
+        };
     }
     return;
   }
