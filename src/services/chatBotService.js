@@ -35,13 +35,13 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                     "payload": {
                         "template_type": "generic",
                         "elements": [{
-                            "title": "Is the situation urgent?",
+                            "title": "How can we help you today?",
                             "image_url": "https://scontent.fybz2-1.fna.fbcdn.net/v/t1.15752-0/p280x280/105384837_275070350236122_6162302596554889487_n.png?_nc_cat=109&_nc_sid=b96e70&_nc_ohc=rkrqCWLHGTgAX-h7hsX&_nc_ht=scontent.fybz2-1.fna&oh=44d93fa8e15621eb0fec077625dfd1f3&oe=5F1AA983",
                             "buttons": [
                                 {
                                     "type": "postback",
-                                    "title": "Urgent",
-                                    "payload": "URGENT",
+                                    "title": "Emergency",
+                                    "payload": "EMERGENCY",
                                 },
                                 {
                                     "type": "postback",
@@ -90,7 +90,6 @@ let sendMessage = (sender_psid, response) => {
         }
     });
 };
-
 
 let reportIncidence = (sender_psid) => {
     return new Promise( async (resolve, reject) => {

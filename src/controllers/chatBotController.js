@@ -134,7 +134,7 @@ let handlePostback = async (sender_psid, received_postback)=> {
       
       //response = { "text": `Welcome ${username} to Police Help! ` };
       break;
-    case "URGENT":
+    case "EMERGENCY":
       response = {};
       break;
     case "REPORT_INCIDENCE":
