@@ -77,12 +77,20 @@ function handleMessage(sender_psid, received_message) {
   //Handle text message
   let entity = handleMessageWithEntities(received_message);
 
-  if(entity.name === "wit$datetime:datetime"){
-    //handle quick reply message: asking about phone number
+  if (entity.name === "wit$datetime:datetime") {
+    //handle quick reply message: asking about the incidence
+    let response = { text: "Please decribe the incidence. Start your description with 'Incidence: '" };
+    await chatBotService.sendMessage(sender_psid, response);
 
-  }else if(entity.name === "wit$phone_number:phone_number"){
+  } else if (entity.name === "wit$phone_number:phone_number") {
     //handle quick reply message: done reserve table
-  }else{
+
+  } else if (received_message.includes("Incidence:")) {
+    // Create the payload for a basic text message
+    let response = {"text": "Thank you for reporting the incidence. We will get back to you as soon as possible."};
+    await chatBotService.sendMessage(sender_psid, response);
+    
+  } else {
     //default reply
   }
 
@@ -97,7 +105,7 @@ let handleMessageWithEntities = (message) => {
   let data = {}; //data is an object saving value and name of the entity
   entitiesArr.forEach((name) => {
     let entity = firstEntity(message.nlp, name);
-    if (entity && entity.confidence > 0.8){
+    if (entity && entity.confidence > 0.8) {
       entityChosen = name;
       data.value = entity.value;
     }
@@ -107,13 +115,13 @@ let handleMessageWithEntities = (message) => {
   return data;
 };
 
-function firstEntity(nlp,name){
+function firstEntity(nlp, name) {
   return nlp && nlp.entities && nlp.entities[name] && nlp.entities[name][0];
 };
 
 
 // Handles messaging_postbacks events
-let handlePostback = async (sender_psid, received_postback)=> {
+let handlePostback = async (sender_psid, received_postback) => {
   let response;
 
   // Get the payload for the postback
@@ -124,8 +132,8 @@ let handlePostback = async (sender_psid, received_postback)=> {
     case "GET_STARTED": //Message user receive after clicking on "Get Started"
       //get username
       let username = await chatBotService.getFacebookUsername(sender_psid);
-      await chatBotService.sendResponseWelcomeNewCustomer(username,sender_psid);
-      
+      await chatBotService.sendResponseWelcomeNewCustomer(username, sender_psid);
+
       //response = { "text": `Welcome ${username} to Police Help! ` };
       break;
     case "EMERGENCY":

@@ -78,6 +78,7 @@ let reportIncidence = (sender_psid) => {
 
             await sendMessage(sender_psid, response);
 
+            //Delay this function, otherwise it will appear before the previous message.
             setTimeout(await sendMessage(sender_psid, response_second),1000);
 
 
@@ -117,5 +118,6 @@ let sendMessage = (sender_psid, response) => {
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
-    reportIncidence: reportIncidence
+    reportIncidence: reportIncidence,
+    sendMessage: sendMessage
 };
