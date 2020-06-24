@@ -79,16 +79,16 @@ function handleMessage(sender_psid, received_message) {
 
   if (entity.name === "wit$datetime:datetime") {
     //handle quick reply message: asking about the incidence
-    let response = { "text": "Please decribe the incidence. Start your description with 'Incidence: '" };
-    await chatBotService.sendMessage(sender_psid, response);
+    //let response = { "text": "Please decribe the incidence. Start your description with 'Incidence: '" };
+    //await chatBotService.sendMessage(sender_psid, response);
 
   } else if (entity.name === "wit$phone_number:phone_number") {
     //handle quick reply message: done reserve table
 
   } else if (received_message.includes("Incidence:")) {
     // Create the payload for a basic text message
-    let response = { "text": "Thank you for reporting the incidence. We will get back to you as soon as possible." };
-    await chatBotService.sendMessage(sender_psid, response);
+    //let response = { "text": "Thank you for reporting the incidence. We will get back to you as soon as possible." };
+    //await chatBotService.sendMessage(sender_psid, response);
 
   } else {
     //default reply
