@@ -74,6 +74,16 @@ let getWebhook = (req, res) => {
 
 // Handles messages events
 let handleMessage = async (sender_psid, received_message) => {
+  //Check if it's a quick reply
+  if(message && message.quick_reply && message.quick_reply.payload){
+    if(message.quick_reply.payload = "EMERGENCY_DANGER"){
+      let response = { "text": "CALL 911 NOW" };
+      await callSendAPI(sender_psid, response);
+    }
+    return;
+  };
+  
+
   //Handle text message
   let entity = handleMessageWithEntities(received_message);
 
@@ -141,9 +151,6 @@ let handlePostback = async (sender_psid, received_postback) => {
       break;
     case "REPORT_INCIDENCE":
       await chatBotService.reportIncidence(sender_psid);
-      break;
-    case "EMERGENCY_DANGER":
-      await chatBotService.callPolice(sender_psid);
       break;
     default:
       console.log("Something wrong with switch case payload");
