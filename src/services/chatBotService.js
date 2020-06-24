@@ -27,7 +27,7 @@ let getFacebookUsername = (sender_psid) => {
 
 let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
     return new Promise(async (resolve, reject) => {
-        try{
+        try {
             let response_first = { "text": `Welcome ${username} to Police Help!` };
             let response_second = {
                 "attachment": {
@@ -53,15 +53,15 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
                     }
                 }
             };
-    
+
             //send a welcome message
             await sendMessage(sender_psid, response_first);
-    
+
             //send a image with button view main menu
             await sendMessage(sender_psid, response_second);
 
             resolve("done!");
-        }catch (e){
+        } catch (e) {
             reject(e);
         }
 
@@ -71,18 +71,18 @@ let sendResponseWelcomeNewCustomer = (username, sender_psid) => {
 
 
 let reportIncidence = (sender_psid) => {
-    return new Promise( async (resolve, reject) => {
-        try{
-            let response = {text:"We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible."};
-            let response_second ={text: "What time did the incident occur?"};
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = { text: "We will ask you some questions about the incidence. If possible, please provide us with as much detail as possible." };
+            let response_second = { text: "What time did the incident occur?" };
 
             await sendMessage(sender_psid, response);
 
             //Delay this function, otherwise it will appear before the previous message.
-            setTimeout(await sendMessage(sender_psid, response_second),1000);
+            setTimeout(await sendMessage(sender_psid, response_second), 1000);
 
 
-        }catch(e) {
+        } catch (e) {
             reject(e);
         }
 
@@ -114,10 +114,48 @@ let sendMessage = (sender_psid, response) => {
     });
 };
 
+//Quick replies
+let safetyCheckEmergency = (sender_psid) => {
+    let request_body = {
+        "recipient": {"id": sender_psid},
+        "messaging_type": "RESPONSE",
+        "message": {
+            "text": "Are you safe?",
+            "quick_replies": [
+                {
+                    "content_type": "text",
+                    "title": "NO",
+                    "payload": "EMERGENCY_DANGER",
+                    "image_url": "https://www.colorcombos.com/images/colors/FF1A00.png"
+                }, {
+                    "content_type": "text",
+                    "title": "YES",
+                    "payload": "EMERGENCY_SAFE",
+                    "image_url": "https://wallpaperplay.com/walls/full/6/7/3/73723.jpg"
+                }
+            ]
+        }
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    request({
+        "uri": "https://graph.facebook.com/v6.0/me/messages",
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        if (!err) {
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
+        }
+    });
+};
 
 module.exports = {
     getFacebookUsername: getFacebookUsername,
     sendResponseWelcomeNewCustomer: sendResponseWelcomeNewCustomer,
     reportIncidence: reportIncidence,
-    sendMessage: sendMessage
+    sendMessage: sendMessage,
+    safetyCheckEmergency: safetyCheckEmergency
 };

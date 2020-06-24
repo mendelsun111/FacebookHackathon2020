@@ -73,14 +73,14 @@ let getWebhook = (req, res) => {
 };
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+let handleMessage = async (sender_psid, received_message) => {
   //Handle text message
   let entity = handleMessageWithEntities(received_message);
 
   if (entity.name === "wit$datetime:datetime") {
     //handle quick reply message: asking about the incidence
     //let response = { "text": "Please decribe the incidence. Start your description with 'Incidence: '" };
-    //await chatBotService.sendMessage(sender_psid, response);
+    //await callSendAPI(sender_psid, response);
 
   } else if (entity.name === "wit$phone_number:phone_number") {
     //handle quick reply message: done reserve table
@@ -88,7 +88,7 @@ function handleMessage(sender_psid, received_message) {
   } else if (received_message.includes("Incidence:")) {
     // Create the payload for a basic text message
     //let response = { "text": "Thank you for reporting the incidence. We will get back to you as soon as possible." };
-    //await chatBotService.sendMessage(sender_psid, response);
+    //await callSendAPI(sender_psid, response);
 
   } else {
     //default reply
@@ -137,7 +137,7 @@ let handlePostback = async (sender_psid, received_postback) => {
       //response = { "text": `Welcome ${username} to Police Help! ` };
       break;
     case "EMERGENCY":
-      response = {};
+      await chatBotService.safetyCheckEmergency(sender_psid);
       break;
     case "REPORT_INCIDENCE":
       await chatBotService.reportIncidence(sender_psid);
